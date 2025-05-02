@@ -45,5 +45,12 @@ namespace WebApplication2.Services
             _context.Projects.Update(project);
             await _context.SaveChangesAsync();
         }
+
+        // ✅ NEW: Create project method
+        public async Task CreateProjectAsync(Project project)
+        {
+            _context.Projects.Add(project);
+            await _context.SaveChangesAsync();
+        }
     }
 }

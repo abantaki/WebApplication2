@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Data;
 using WebApplication2.Models;
@@ -13,9 +10,9 @@ namespace WebApplication2.Pages_Projects
 {
     public class EditModel : PageModel
     {
-        private readonly WebApplication2.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public EditModel(WebApplication2.Data.ApplicationDbContext context)
+        public EditModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -25,28 +22,18 @@ namespace WebApplication2.Pages_Projects
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var project =  await _context.Projects.FirstOrDefaultAsync(m => m.Id == id);
-            if (project == null)
-            {
-                return NotFound();
-            }
-            Project = project;
+            Project = await _context.Projects.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (Project == null) return NotFound();
+
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            if (!ModelState.IsValid) return Page();
 
             _context.Attach(Project).State = EntityState.Modified;
 
@@ -56,22 +43,14 @@ namespace WebApplication2.Pages_Projects
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProjectExists(Project.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                if (!ProjectExists(Project.Id)) return NotFound();
+                throw;
             }
 
             return RedirectToPage("./Index");
         }
 
-        private bool ProjectExists(int id)
-        {
-            return _context.Projects.Any(e => e.Id == id);
-        }
+        private bool ProjectExists(int id) =>
+            _context.Projects.Any(e => e.Id == id);
     }
 }

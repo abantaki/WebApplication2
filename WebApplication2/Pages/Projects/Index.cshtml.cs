@@ -20,7 +20,7 @@ namespace WebApplication2.Pages.Projects
         public ProjectStatus? Status { get; set; }
 
         [BindProperty]
-        public Project Project { get; set; }
+        public Project Project { get; set; } = new Project();
 
         public int AllCount { get; set; }
         public int StartedCount { get; set; }
@@ -36,6 +36,18 @@ namespace WebApplication2.Pages.Projects
             AllCount = allProjects.Count;
             StartedCount = allProjects.Count(p => p.Status == ProjectStatus.Started);
             CompletedCount = allProjects.Count(p => p.Status == ProjectStatus.Completed);
+        }
+
+        public async Task<IActionResult> OnPostCreateAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                await OnGetAsync(); // Rehydrate lists on error
+                return Page();
+            }
+
+            await _projectService.CreateProjectAsync(Project);
+            return RedirectToPage(); // Refresh page to show new project
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(int id)
@@ -68,7 +80,7 @@ namespace WebApplication2.Pages.Projects
             }
 
             await _projectService.UpdateProjectAsync(Project);
-            return new JsonResult(new { success = true });
+            return RedirectToPage();
         }
     }
 }

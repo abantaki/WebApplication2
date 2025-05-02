@@ -1,27 +1,77 @@
 ﻿@model WebApplication2.Models.Project
+@using WebApplication2.Models
 
-<form id="editProjectForm" method="post" asp-page-handler="Edit">
+<!-- Edit Project Modal Content -->
+<form id="editProjectForm" method="post" asp-page-handler="Edit" class="px-4 pb-4">
     <input type="hidden" asp-for="Id" />
 
-    <div class="mb-3">
-        <label asp-for="ProjectName" class="form-label"></label>
-        <input asp-for="ProjectName" class="form-control" />
+    <!-- Modal Close Button (top-right) -->
+    <div class="text-end pt-3">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
 
-    <div class="mb-3">
-        <label asp-for="ClientName" class="form-label"></label>
-        <input asp-for="ClientName" class="form-control" />
+    <!-- Title and Icon -->
+    <div class="text-center mb-4">
+        <h5 class="fw-bold">Edit Project</h5>
+        <img src="~/images/avatars/Image.svg" alt="Edit Icon" width="72" height="72" />
     </div>
 
+    <!-- Project Name -->
     <div class="mb-3">
-        <label asp-for="Description" class="form-label"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
+        <label asp-for="ProjectName" class="form-label">Project Name</label>
+        <input asp-for="ProjectName" class="form-control rounded-3" />
+        <span asp-validation-for="ProjectName" class="text-danger"></span>
     </div>
 
-    <!-- You can add more fields here if needed -->
+    <!-- Client Name -->
+    <div class="mb-3">
+        <label asp-for="ClientName" class="form-label">Client Name</label>
+        <input asp-for="ClientName" class="form-control rounded-3" />
+        <span asp-validation-for="ClientName" class="text-danger"></span>
+    </div>
 
-    <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <!-- Description -->
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Description</label>
+        <textarea asp-for="Description" class="form-control rounded-3" rows="3"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <!-- Dates -->
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="StartDate" class="form-label">Start Date</label>
+            <input asp-for="StartDate" type="date" class="form-control rounded-3" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="EndDate" class="form-label">End Date</label>
+            <input asp-for="EndDate" type="date" class="form-control rounded-3" />
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+        </div>
+    </div>
+
+    <!-- Budget -->
+    <div class="mb-3">
+        <label asp-for="Budget" class="form-label">Budget</label>
+        <div class="input-group">
+            <span class="input-group-text rounded-start-3">$</span>
+            <input asp-for="Budget" class="form-control rounded-end-3" />
+        </div>
+        <span asp-validation-for="Budget" class="text-danger"></span>
+    </div>
+
+    <!-- Status -->
+    <div class="mb-4">
+        <label asp-for="Status" class="form-label">Status</label>
+        <select asp-for="Status" class="form-select rounded-3" asp-items="Html.GetEnumSelectList<ProjectStatus>()"></select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary px-5 rounded-pill" style="background-color: #4F46E5;">
+            Save
+        </button>
     </div>
 </form>

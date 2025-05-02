@@ -1,25 +1,48 @@
+/* Base HTML settings */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* Global body styling */
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    font-family: 'Nunito', sans-serif;
 }
+
+/* App Background: applied to layout body and sidebar */
+.bg-app,
+.bg-light,
+.navbar,
+.sidebar {
+    background-color: #F1F3F7 !important;
+}
+
+/* Inputs focus style */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* Modal Styling */
+.modal-content {
+    background-color: #ffffff !important;
+    border-radius: 16px;
+    padding: 0;
+    max-width: 500px;
+    margin: auto;
+}
+
 .modal-dialog.custom-modal {
     max-width: 550px;
     width: 550px;
@@ -30,6 +53,8 @@ body {
 .modal-content.custom-content {
     height: 1131px;
 }
+
+/* Gear Icon Hover (Settings dropdown) */
 #settingsDropdown .bi-gear-fill {
     transition: color 0.2s ease-in-out;
 }
@@ -37,32 +62,37 @@ body {
 #settingsDropdown:hover .bi-gear-fill {
     color: #343a40;
 }
-body {
-    font-family: 'Nunito', sans-serif;
-}
 
-.project-card, .project-title, .project-client, .project-description {
-    font-family: 'Nunito', sans-serif;
-}
-
+/* Custom Font */
 .font-comfortaa {
     font-family: 'Comfortaa', cursive;
 }
-.project-avatar {
-    width: 56px;
-    height: 56px;
-    object-fit: cover;
-    border-radius: 8px;
-}
+
+/* Project Card Styling */
 .project-card {
+    background-color: #ffffff;
     border-radius: 16px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
     transition: box-shadow 0.2s ease-in-out;
 }
 
-  .project-card:hover {
+    .project-card:hover {
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
     }
+
+.project-avatar {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.project-title,
+.project-client,
+.project-description,
+.card-description {
+    font-family: 'Nunito', sans-serif;
+}
 
 .project-title {
     font-size: 18px;
@@ -76,27 +106,20 @@ body {
     color: #637085;
 }
 
-.project-description {
+.project-description,
+.card-description {
     font-size: 15px;
     font-weight: 400;
     color: #28263B;
 }
 
-.project-avatar {
-    width: 56px;
-    height: 56px;
-    object-fit: contain;
-}
 .card-description {
-    color: #28263B;
-    font-size: 15px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     line-height: 1.5rem;
-    max-height: 6rem; 
+    max-height: 6rem;
     white-space: normal;
 }
-
