@@ -48,11 +48,11 @@ namespace WebApplication2.Pages.Projects
                 return Page();
             }
 
-            // Set CreatedAt timestamp
+            
             Project.CreatedAt = DateTime.UtcNow;
 
             await _projectService.CreateProjectAsync(Project);
-            return RedirectToPage(); // Refresh page to show new project
+            return RedirectToPage(); 
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(int id)
