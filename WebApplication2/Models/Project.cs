@@ -40,5 +40,8 @@ namespace WebApplication2.Models
 
         [Display(Name = "Status")]
         public ProjectStatus Status { get; set; } = ProjectStatus.Started;
+
+        [Display(Name = "Created At")]
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow; 
     }
 }

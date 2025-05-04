@@ -30,8 +30,10 @@ namespace WebApplication2.Pages.Projects
         {
             var allProjects = await _projectService.GetProjectsByStatusAsync(null);
             Projects = Status.HasValue
-                ? allProjects.Where(p => p.Status == Status.Value).ToList()
-                : allProjects;
+                ? allProjects.Where(p => p.Status == Status.Value)
+                              .OrderByDescending(p => p.CreatedAt)
+                              .ToList()
+                : allProjects.OrderByDescending(p => p.CreatedAt).ToList();
 
             AllCount = allProjects.Count;
             StartedCount = allProjects.Count(p => p.Status == ProjectStatus.Started);
@@ -42,9 +44,12 @@ namespace WebApplication2.Pages.Projects
         {
             if (!ModelState.IsValid)
             {
-                await OnGetAsync(); // Rehydrate lists on error
+                await OnGetAsync(); 
                 return Page();
             }
+
+            // Set CreatedAt timestamp
+            Project.CreatedAt = DateTime.UtcNow;
 
             await _projectService.CreateProjectAsync(Project);
             return RedirectToPage(); // Refresh page to show new project
